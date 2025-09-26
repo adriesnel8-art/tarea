@@ -1,0 +1,42 @@
+import discord
+from discord.ext import commands
+import random
+
+permisos = discord.Intents.default()
+permisos.message_content = True
+
+
+viernes = commands.Bot(command_prefix='!', intents=permisos)
+
+@viernes.event
+async def on_ready():
+    print(f'Bot conectado como {viernes.user}')
+
+
+@viernes.command()
+async def manualidades(ctx):
+    lista_manualidades = [ "hacer una pulsera con plasticoas recicladas",
+                           "crear un portaretratos con palitos de helado",
+                           "hacer velas aromáticas caseras"]
+    idea = random.choice(lista_manualidades)
+    await ctx.send(idea)
+
+
+
+
+@viernes.command()
+async def clasificar(ctx, *, odjeto):
+    odjeto = odjeto.lower()
+
+    reciclables = ["papel", "cartón", "botellas de plástico", "latas de aluminio", "vidrio"]
+    no_reciclables = ["plásticos contaminados", "papel encerado", "cerámica", "escombros", "residuos orgánicos"]
+
+    if odjeto in reciclables:
+        await ctx.send("¡Este objeto es reciclable! ♻️")
+
+    elif odjeto in no_reciclables:
+        await ctx.send("Este objeto no es reciclable. ❌")
+
+
+viernes.run("MTQxNjIxODU0MjkxNDkyODc1Mg.GXxwZ6.MSW1JPhF5PxExgM5TS6wYj7k1MrN7iNV-FFIEM")
+
